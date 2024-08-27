@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/27 12:06:32 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:44:18 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	pthread_mutex_t	write_lock;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	meal_lock;
+	bool	write_lock;
+	bool	dead_lock;
+	bool	meal_lock;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	l_fork;
 }	t_philo;

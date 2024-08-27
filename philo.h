@@ -6,16 +6,17 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/26 18:36:36 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:06:32 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <stdio.h>
-#include <pthread.h>
-#include <string.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <string.h>
+# include <unistd.h>
 
 # define PHILO_MAX 250
 
@@ -39,11 +40,12 @@ typedef struct s_philo
 	pthread_mutex_t	l_fork;
 }	t_philo;
 
-void	philo_init(argc, argv, &philo);
-int		only_nb_atoi(char *s);
+int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork);
+int		ft_atoi(char *s);
 size_t	get_time(void);
-int	fork_init(pthread_mutex_t *fork);
-void destroy_all(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
+int		fork_init(int fork_cnt, pthread_mutex_t *fork);
+void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
+int		thread_make(philo, fork);
 
 
 #endif

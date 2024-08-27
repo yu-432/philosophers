@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/27 10:43:12 by yooshima         ###   ########.fr       */
+/*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
+/*   Updated: 2024/08/27 12:35:32 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <sys/time.h>
-#include <limits.h>
 
-int	ft_atoi(char *s)
+int	dead_check(t_philo *philo)
 {
-	long	nbs;
-
-	nbs = 0;
-	while (*s)
-	{
-		if (*s < '0' || '9' < *s || nbs > INT_MAX)
-			return (-1);
-		nbs = nbs * 10 + (*s - '0');
-		s++;
-	}
-	return ((int)nbs);
+	if (*philo->dead == 1)
+		return (1);
+	return (0);
 }
 
-size_t	get_time(void)
+void *routine(void *pointer)
 {
-	struct timeval	tv;
+	t_philo *philo;
+	
+	philo = (t_philo *)pointer;
+	if (philo->id & 2 == 0)
+		usleep(10);
+	while ()
+}
 
-	if (gettimeofday(&tv, NULL) == -1)
-		write(2, "Error:Gettimeofday error\n", 25);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+int	thread_make(t_philo *philo, pthread_mutex_t *fork)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < philo[0].num_of_philo)
+	{
+		
+	}
 }

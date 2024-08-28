@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/27 14:44:47 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:53:48 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	fork_init(int fork_cnt, pthread_mutex_t *fork)
 	int	i;
 
 	i = 0;
-	while (i++ < fork_cnt)
+	while (i < fork_cnt)
 	{
 		if (pthread_mutex_init(&fork[i], NULL) != 0)
 		{
@@ -25,6 +25,7 @@ int	fork_init(int fork_cnt, pthread_mutex_t *fork)
 				pthread_mutex_destroy(&fork[i]);
 			return (write(2, "Error:Fork mutex init\n", 22), -1);
 		}
+		i++;
 	}
 	return (0);
 }
@@ -50,7 +51,7 @@ int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork)
 
 	i = 0;
 	p_cnt = ft_atoi(argv[1]);
-	while (i++ < p_cnt)
+	while (i < p_cnt)
 	{
 		input_init(argc, argv, &philo[i]);
 		philo[i].id = i + 1;
@@ -58,6 +59,7 @@ int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork)
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = get_time();
 		philo[i].start_time = get_time();
+		philo[i].dead = false;
 		philo[i].write_lock = false;
 		philo[i].dead_lock = false;
 		philo[i].meal_lock = false;
@@ -66,7 +68,7 @@ int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork)
 			philo[i].r_fork = fork[ft_atoi(argv[1]) - 1];
 		else
 			philo[i].r_fork = fork[i - 1];
+		i++;
 	}
 	return (0);
 }
-

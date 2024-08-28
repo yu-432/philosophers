@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/27 13:58:22 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:49:21 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <stdlib.h>
 
 # define PHILO_MAX 250
 
@@ -34,6 +35,7 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
+	bool	dead;
 	bool	write_lock;
 	bool	dead_lock;
 	bool	meal_lock;
@@ -47,6 +49,14 @@ size_t	get_time(void);
 int		fork_init(int fork_cnt, pthread_mutex_t *fork);
 void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
 int		thread_make(t_philo *philo, pthread_mutex_t *fork);
+void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
+int	eat(t_philo *philo);
+void	think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	*w_routine(void *pointer);
+
+
+
 
 
 #endif

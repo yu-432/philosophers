@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/29 12:32:17 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:37:21 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	}
 	pthread_join(watcher, NULL);
 	i = 0;
-	while (i++ < philo[0].num_of_philos)
+	while (i < philo[0].num_of_philos)
 	{
 		pthread_join(philo[i].thread, NULL);
 		i++;

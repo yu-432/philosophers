@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/29 11:52:55 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/29 12:43:50 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@ int	check_count_eat(t_philo *philos)
 	int	i;
 	int	count;
 
-	i = -1;
+	i = 0;
 	count = 0;
-	while (i++ < philos[0].num_of_philos)
+	while (i < philos[0].num_of_philos)
+	{
 		if (philos[i-1].meals_eaten == philos[0].time_to_eat)
 			count++;
+		i++;
+	}
 	if (count == philos[0].num_of_philos)
 		return (1);
 	return (0);

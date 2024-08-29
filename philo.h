@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/28 13:49:21 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:16:51 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_philo
 	bool	write_lock;
 	bool	dead_lock;
 	bool	meal_lock;
-	pthread_mutex_t	r_fork;
-	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
 }	t_philo;
 
 int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork);

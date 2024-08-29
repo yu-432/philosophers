@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/28 13:53:48 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:18:03 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork)
 		philo[i].write_lock = false;
 		philo[i].dead_lock = false;
 		philo[i].meal_lock = false;
-		philo[i].l_fork = fork[i];
+		philo[i].l_fork = &fork[i];
 		if (i == 0)
-			philo[i].r_fork = fork[ft_atoi(argv[1]) - 1];
+			philo[i].r_fork = &fork[philo[i].num_of_philos - 1];
 		else
-			philo[i].r_fork = fork[i - 1];
+			philo[i].r_fork = &fork[i - 1];
 		i++;
 	}
 	return (0);

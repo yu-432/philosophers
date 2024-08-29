@@ -6,26 +6,27 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/26 15:59:42 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:24:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
+#include <limits.h>
 
-int	only_nb_atoi(char *s)
+int	ft_atoi(char *s)
 {
 	long	nbs;
 
 	nbs = 0;
 	while (*s)
 	{
-		if (*s > '0' || '9' < *s)
+		if (*s < '0' || '9' < *s || nbs > INT_MAX)
 			return (-1);
 		nbs = nbs * 10 + (*s - '0');
 		s++;
 	}
-	return (nbs);
+	return ((int)nbs);
 }
 
 size_t	get_time(void)

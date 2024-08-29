@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/28 16:16:17 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/29 10:53:35 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_dead(t_philo *philos)
 	{
 		if (get_time() - philos[i].last_meal > philos[i].time_to_die)
 		{
-			philos[i-1].dead = true;
+			philos[i].dead = true;
 			printf("dead\n");
 			return (1);
 		}

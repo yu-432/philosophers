@@ -12,19 +12,14 @@
 
 #include "philo.h"
 
-int	fork_init(int fork_cnt, pthread_mutex_t *fork)
+int	fork_init(int philo_cnt, pthread_mutex_t *fork)
 {
 	int	i;
 
 	i = 0;
-	while (i < fork_cnt)
+	while (i < philo_cnt)
 	{
-		if (pthread_mutex_init(&fork[i], NULL) != 0)
-		{
-			while (i-- >= 0)
-				pthread_mutex_destroy(&fork[i]);
-			return (write(2, "Error:Fork mutex init\n", 22), -1);
-		}
+		pthread_mutex_init(&fork[i], NULL);
 		i++;
 	}
 	return (0);
@@ -42,8 +37,6 @@ void	input_init(int argc, char **argv, t_philo *philo)
 		philo->num_times_to_eat = -1;
 }
 
-//pthread mutex initは失敗時を想定していなければならないか
-//一旦初期値が定数のもののみインプット初期化関数にいれたが、mutex初期化を別関数にするべきかもしれない
 int	philo_init(int argc, char **argv, t_philo *philo, pthread_mutex_t *fork)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/29 10:52:08 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:41:48 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <stdlib.h>
 
 # define PHILO_MAX 250
-//test
 typedef struct s_philo
 {
 	pthread_t		thread;

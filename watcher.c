@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/29 12:43:50 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:53:22 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_count_eat(t_philo *philos)
 	count = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		if (philos[i-1].meals_eaten == philos[0].time_to_eat)
+		if (philos[i].meals_eaten == philos[0].time_to_eat)
 			count++;
 		i++;
 	}
@@ -40,7 +40,6 @@ int	check_dead(t_philo *philos)
 		if (get_time() - philos[i].last_meal > philos[i].time_to_die)
 		{
 			philos[i].dead = true;
-			printf("dead\n");
 			return (1);
 		}
 		i++;

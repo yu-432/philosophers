@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/31 11:25:43 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/01 13:08:56 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	eat(t_philo *philo)
 {
+	if(dead_check(philo))
+		return (-1);
+
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 		return (write(2, "Error:Mutex lock\n", 17), -1);
 	printf("%zu %d has taken a fork\n", get_time(), philo->id);
@@ -33,11 +36,19 @@ int	eat(t_philo *philo)
 
 void	think(t_philo *philo)
 {
+	if(dead_check(philo))
+	{
+		return;
+	}
 	printf("%zu %d is thinking\n", get_time(), philo->id);
 }
 
 void	ft_sleep(t_philo *philo)
 {
+	if (dead_check(philo))
+	{
+		return;
+	}
 	printf("%zu %d is sleeping\n", get_time(), philo->id);
 	usleep(philo->time_to_sleep * 1000);
 }

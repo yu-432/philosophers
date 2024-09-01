@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/31 11:53:22 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/01 13:00:14 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	check_count_eat(t_philo *philos)
 	return (0);
 }
 
+
+
 int	check_dead(t_philo *philos)
 {
 	int	i;
@@ -39,8 +41,10 @@ int	check_dead(t_philo *philos)
 	{
 		if (get_time() - philos[i].last_meal > philos[i].time_to_die)
 		{
-			philos[i].dead = true;
-			return (1);
+			pthread_mutex_lock(&philos[0].data->dead_lock);
+			philos[0].data->is_dead = true;
+			printf("%zu %d dead\n", get_time(), i + 1);
+			return (pthread_mutex_unlock(&philos[0].data->dead_lock), 1);
 		}
 		i++;
 	}
@@ -55,5 +59,5 @@ void	*w_routine(void *pointer)
 	while (1)
 		if (check_dead(philos) == 1 || check_count_eat(philos) == 1)
 			break ;
-	return (pointer);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 14:39:48 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:33:20 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,16 @@ int	fork_init(int philo_cnt, pthread_mutex_t *fork)
 	i = 0;
 	while (i < philo_cnt)
 	{
-		pthread_mutex_init(&fork[i], NULL);
+		if (pthread_mutex_init(&fork[i], NULL) != 0)
+		{
+			write(2, "Error:Fork mutex init failed\n", 29);
+			while (i > 0)
+			{
+				pthread_mutex_destroy(&fork[i - 1]);
+				i--;
+			}
+			return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -37,17 +46,8 @@ void	input_init(char **argv, t_philo *philo)
 		philo->num_times_to_eat = -1;
 }
 
-int	data_init(t_data *data)
-{
-	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
-		return (-1);
-	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
-		return (-1);
-	data->is_dead = false;
-	return (0);
-}
 
-int	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork)
+void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork)
 {
 	int	i;
 	int	p_cnt;
@@ -70,5 +70,14 @@ int	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork)
 			philo[i].r_fork = &fork[i - 1];
 		i++;
 	}
+}
+
+int	data_init(t_data *data)
+{
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+		return (-1);
+	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
+		return (-1);
+	data->is_dead = false;
 	return (0);
 }

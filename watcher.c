@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 15:02:23 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 20:06:15 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	check_count_eat(t_philo *philos)
 	int	count;
 
 	count = 0;
-	if (philos[0].time_to_eat == -1)
+	if (philos[0].num_times_to_eat == -1)
 		return(0);
 	else if (philos[0].num_of_philos % 2 == 0 && \
 		philos[philos[0].num_of_philos - 1].meals_eaten == philos[0].num_times_to_eat)
 		{
+			printf("%d\n",philos[0].num_of_philos - 1);
 			pthread_mutex_lock(&philos[0].data->dead_lock);
 			philos[0].data->is_dead = true;
 			pthread_mutex_unlock(&philos[0].data->dead_lock);
@@ -51,7 +52,7 @@ int	dead_loop(t_philo *philos)
 			pthread_mutex_lock(&philos[0].data->dead_lock);
 			philos[0].data->is_dead = true;
 			pthread_mutex_unlock(&philos[0].data->dead_lock);
-			printf("%zu %d died\n", get_time(), philos[i].id);
+			printf("%0.10zu %d died\n", get_time() - philos[i].start_time, philos[i].id);
 			return (1);
 		}
 		i++;

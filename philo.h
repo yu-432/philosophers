@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 13:00:23 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:38:19 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct s_philo
 }	t_philo;
 
 
-int	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork);
+void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork);
+
 int		ft_atoi(char *s);
 size_t	get_time(void);
 int		fork_init(int fork_cnt, pthread_mutex_t *fork);
@@ -62,14 +63,5 @@ void	*w_routine(void *pointer);
 int	data_init(t_data *data);
 int	check_dead(t_philo *philo);
 void print_msg(t_philo *philo, char *str);
-
-
-
-
-
-
-
-
-
 
 #endif

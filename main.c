@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 13:17:36 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:34:07 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(int argc, char *argv[])
 	{
 		return (write(2, "Error:Invalid args. 3 700 200 200 [10]\n", 39), 1);
 	}
+	philo_init(argv, &data, philo, fork);
 	if (fork_init(ft_atoi(argv[1]), fork) == -1 \
-		|| philo_init(argv, &data, philo, fork) == -1 \
 		|| data_init(&data) == -1)
 		return (1);
 	if (thread_make(philo, fork) != 0)

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 14:40:35 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:52:43 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ void *p_routine(void *pointer)
 	t_philo *philo;
 
 	philo = (t_philo *)pointer;
-	if (philo->num_of_philos % 2 == 0)
+	if (philo->num_of_philos % 2 == 0 && philo->id % 2 == 0)
 	{
-		if (philo->id % 2 == 0)
-			usleep(philo->time_to_eat * 500);
+		usleep(philo->time_to_eat * 500);
 	}
-	else
+	else if (philo->num_of_philos % 2 == 1)
 	{
 		if (philo->id % 2 == 0)
 			usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 2) + philo->time_to_eat * 1000);
@@ -53,20 +52,25 @@ int	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	pthread_t watcher;
 
 	i = 0;
-	while (i < philo[0].num_of_philos)
+	while (i++ < philo[0].num_of_philos)
 	{
-		if (pthread_create(&philo[i].thread, NULL, p_routine, &philo[i]) != 0)
+		if (pthread_create(&philo[i - 1].thread, NULL, p_routine, &philo[i - 1]) != 0)
+		{
+			while (--i >= 0)
+				pthread_detach(philo[i].thread);
 			return (write(2, "Error:Thread create\n", 20), -1);
-		i++;
+		}
 	}
-	pthread_create(&watcher, NULL, w_routine, philo);
+	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
+		return (write(2, "Error:Thread create\n", 20), -1);
 	i = 0;
-	while (i < philo[0].num_of_philos)
+	while (i++ < philo[0].num_of_philos)
 	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
+		if (pthread_join(philo[i - 1].thread, NULL) != 0)
+			return (write(2, "Error:Thread join\n", 18), -1);
 	}
-	pthread_join(watcher, NULL);
+	if (pthread_join(watcher, NULL) != 0)
+		return (write(2, "Error:Thread join\n", 18), -1);
 	return (0);
 }
 
@@ -77,7 +81,7 @@ void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
 	i = 0;
 	while (i < philo[0].num_of_philos)
 	{
-		pthread_mutex_destroy(&fork[i - 1]);
+		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
 	return ;

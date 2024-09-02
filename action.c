@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/01 13:08:56 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:50:25 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,31 @@
 
 int	eat(t_philo *philo)
 {
-	if(dead_check(philo))
-		return (-1);
-
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 		return (write(2, "Error:Mutex lock\n", 17), -1);
-	printf("%zu %d has taken a fork\n", get_time(), philo->id);
+	print_msg(philo, "has taken a fork");
 	if (pthread_mutex_lock(philo->l_fork) != 0)
 		return (write(2, "Error:Mutex lock\n", 17), -1);
-	printf("%zu %d has taken a fork\n", get_time(), philo->id);
-	printf("%zu %d is eating\n", get_time(), philo->id);
+	print_msg(philo, "has taken a fork");
+	print_msg(philo, "is eating");
 	philo->last_meal = get_time();
-	philo->meals_eaten++;
 	usleep(philo->time_to_eat * 1000);
 	if (pthread_mutex_unlock(philo->l_fork) != 0)
 		return (write(2, "Error:Mutex unlock\n", 19), -1);
 	if (pthread_mutex_unlock(philo->r_fork) != 0)
 		return (write(2, "Error:Mutex unlock\n", 19), -1);
+	philo->meals_eaten++;
 	return (0);
 }
 
 void	think(t_philo *philo)
 {
-	if(dead_check(philo))
-	{
-		return;
-	}
-	printf("%zu %d is thinking\n", get_time(), philo->id);
+	print_msg(philo, "is thinking");
+
 }
 
 void	ft_sleep(t_philo *philo)
 {
-	if (dead_check(philo))
-	{
-		return;
-	}
-	printf("%zu %d is sleeping\n", get_time(), philo->id);
+	print_msg(philo, "is sleeping");
 	usleep(philo->time_to_sleep * 1000);
 }

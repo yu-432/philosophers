@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/01 13:03:52 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:00:23 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_data
 {
 	bool			is_dead;
 	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	write_lock;
 }	t_data;
 
 typedef struct s_philo
@@ -41,7 +42,6 @@ typedef struct s_philo
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	bool	meal_lock;
-	pthread_mutex_t	write_lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	t_data			*data;
@@ -60,7 +60,9 @@ void	think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	*w_routine(void *pointer);
 int	data_init(t_data *data);
-int	dead_check(t_philo *philo);
+int	check_dead(t_philo *philo);
+void print_msg(t_philo *philo, char *str);
+
 
 
 

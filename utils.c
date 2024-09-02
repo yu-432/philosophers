@@ -6,13 +6,25 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/08/28 13:24:41 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:04:00 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
 #include <limits.h>
+
+void print_msg(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->data->write_lock);
+	if (check_dead(philo))
+	{
+		pthread_mutex_unlock(&philo->data->write_lock);
+		return ;
+	}
+	printf("%zu %d %s\n", get_time(), philo->id, str);
+	pthread_mutex_unlock(&philo->data->write_lock);
+}
 
 int	ft_atoi(char *s)
 {

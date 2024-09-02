@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/01 12:30:48 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:39:48 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	data_init(t_data *data)
 {
 	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
 		return (-1);
-	pthread_mutex_lock(&data->dead_lock);
+	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
+		return (-1);
 	data->is_dead = false;
-	pthread_mutex_unlock(&data->dead_lock);
 	return (0);
 }
 

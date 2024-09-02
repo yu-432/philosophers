@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 14:49:59 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:02:23 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_count_eat(t_philo *philos)
 			pthread_mutex_unlock(&philos[0].data->dead_lock);
 			return (1);
 		}
-	else if (philos[philos[0].num_of_philos - 2].num_times_to_eat == philos[0].time_to_eat)
+	else if (philos[philos[0].num_of_philos - 2].meals_eaten == philos[0].num_times_to_eat)
 	{
 			pthread_mutex_lock(&philos[0].data->dead_lock);
 			philos[0].data->is_dead = true;

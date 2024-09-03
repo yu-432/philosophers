@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 13:24:49 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 22:08:46 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int		data_init(t_data *data);
 int		check_dead(t_philo *philo);
 void 	print_msg(t_philo *philo, char *str);
 void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);
+void	ft_usleep(int time, t_philo *philo);
+
 
 
 

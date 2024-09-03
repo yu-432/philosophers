@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 15:04:02 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 22:14:29 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,17 @@ size_t	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	ft_usleep(int time, t_philo *philo)
+{
+	size_t start;
+
+	start = get_time();
+	while(1)
+	{
+		if (get_time() - start >= time)
+			break;
+		usleep(philo->time_to_sleep);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 12:35:33 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 22:14:16 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	eat(t_philo *philo)
 	print_msg(philo, "has taken a fork");
 	print_msg(philo, "is eating");
 	philo->last_meal = get_time();
-	usleep(philo->time_to_eat * 1000);
+	ft_usleep(philo->time_to_eat, philo);
 	if (pthread_mutex_unlock(philo->l_fork) != 0)
 		return (write(2, "Error:Mutex unlock\n", 19), -1);
 	if (pthread_mutex_unlock(philo->r_fork) != 0)
@@ -39,5 +39,5 @@ void	think(t_philo *philo)
 void	ft_sleep(t_philo *philo)
 {
 	print_msg(philo, "is sleeping");
-	usleep(philo->time_to_sleep * 1000);
+	ft_usleep(philo->time_to_sleep, philo);
 }

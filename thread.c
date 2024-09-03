@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 13:32:13 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 21:02:15 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void *p_routine(void *pointer)
 		else
 			usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 1) * 1000);
 	}
-	while (!check_dead(philo))
+	// while (!check_dead(philo))
+	while (!philo->data->is_dead)
 	{
 		eat(philo);
 		ft_sleep(philo);

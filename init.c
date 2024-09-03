@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 18:33:20 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:06:45 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork
 	{
 		input_init(argv, &philo[i]);
 		philo[i].id = i + 1;
-		philo[i].eating = 0;
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = get_time();
 		philo[i].start_time = get_time();
@@ -79,5 +78,6 @@ int	data_init(t_data *data)
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
 		return (-1);
 	data->is_dead = false;
+	data->is_error = false;
 	return (0);
 }

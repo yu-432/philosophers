@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 19:52:43 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 13:32:13 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	check_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->dead_lock);
+	mutex_func(&philo->data->dead_lock, philo, LOCK);
 	if (philo->data->is_dead == true)
-		return (pthread_mutex_unlock(&philo->data->dead_lock), 1);
-	pthread_mutex_unlock(&philo->data->dead_lock);
+		return (mutex_func(&philo->data->dead_lock, philo, UNLOCK), 1);
+	mutex_func(&philo->data->dead_lock, philo, UNLOCK);
 	return (0);
 }
 
@@ -81,7 +81,7 @@ void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
 	i = 0;
 	while (i < philo[0].num_of_philos)
 	{
-		pthread_mutex_destroy(&fork[i]);
+		mutex_func(&fork[i], philo, DESTROY);
 		i++;
 	}
 	return ;

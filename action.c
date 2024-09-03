@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/02 20:08:48 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/03 12:35:33 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	eat(t_philo *philo)
 	if (pthread_mutex_unlock(philo->r_fork) != 0)
 		return (write(2, "Error:Mutex unlock\n", 19), -1);
 	philo->meals_eaten++;
-	printf("%d upcheck\n", philo->id);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 18:53:18 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:00:19 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
 	i = 0;
 	while (i < philo[0].num_of_philos)
 	{
-		mutex_func(&fork[i], philo, DESTROY);
+		// mutex_func(&fork[i], philo, DESTROY);
+		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
 	return ;

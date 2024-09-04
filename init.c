@@ -6,13 +6,13 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 13:06:45 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 17:46:47 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	fork_init(int philo_cnt, pthread_mutex_t *fork)
+bool	fork_init(int philo_cnt, pthread_mutex_t *fork)
 {
 	int	i;
 
@@ -27,11 +27,11 @@ int	fork_init(int philo_cnt, pthread_mutex_t *fork)
 				pthread_mutex_destroy(&fork[i - 1]);
 				i--;
 			}
-			return (-1);
+			return (false);
 		}
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
 void	input_init(char **argv, t_philo *philo)
@@ -71,13 +71,13 @@ void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork
 	}
 }
 
-int	data_init(t_data *data)
+bool	data_init(t_data *data)
 {
 	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
-		return (-1);
+		return (false);
 	if (pthread_mutex_init(&data->write_lock, NULL) != 0)
-		return (-1);
+		return (false);
 	data->is_dead = false;
 	data->is_error = false;
-	return (0);
+	return (true);
 }

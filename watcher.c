@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 16:16:33 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:49:05 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ int	check_count_eat(t_philo *philos)
 	return (0);
 }
 
-
-
 int	dead_loop(t_philo *philos)
 {
 	int	i;
@@ -54,7 +52,7 @@ int	dead_loop(t_philo *philos)
 			pthread_mutex_lock(&philos[0].data->dead_lock);
 			philos[0].data->is_dead = true;
 			pthread_mutex_unlock(&philos[0].data->dead_lock);
-			printf("%0.10zu %d died\n", get_time() - philos[i].start_time, philos[i].id);
+			printf("%10zu %d died\n", get_time() - philos[i].start_time, philos[i].id);
 			return (1);
 		}
 		i++;
@@ -69,8 +67,9 @@ void	*w_routine(void *pointer)
 	philos = (t_philo *)pointer;
 	while (!philos[0].data->is_dead)
 	{
-		if (dead_loop(philos) == 1 || check_count_eat(philos) == 1)
-			break ;
+		if (dead_loop(philos) == 1 || check_count_eat(philos) == 1 \
+			|| philos[0].data->is_error)
+			break;
 	}
 	return (pointer);
 }

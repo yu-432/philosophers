@@ -6,20 +6,13 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 12:48:55 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:53:18 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_dead(t_philo *philo)
-{
-	mutex_func(&philo->data->dead_lock, philo, LOCK);
-	if (philo->data->is_dead == true)
-		return (mutex_func(&philo->data->dead_lock, philo, UNLOCK), 1);
-	mutex_func(&philo->data->dead_lock, philo, UNLOCK);
-	return (0);
-}
+
 
 void *p_routine(void *pointer)
 {
@@ -46,7 +39,7 @@ void *p_routine(void *pointer)
 	return (pointer);
 }
 
-int	thread_make(t_philo *philo, pthread_mutex_t *fork)
+bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 {
 	int	i;
 	pthread_t watcher;
@@ -58,16 +51,18 @@ int	thread_make(t_philo *philo, pthread_mutex_t *fork)
 		{
 			while (--i >= 0)
 				pthread_detach(philo[i].thread);
-			return (write(2, "Error:Thread create\n", 20), -1);
+			return (write(2, "Error:Thread create\n", 20), false);
 		}
 	}
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
-		return (write(2, "Error:Thread create\n", 20), -1);
+		return (write(2, "Error:Thread create\n", 20), false);
 	i = 0;
-	pthread_join(watcher, NULL);
-	while (i++ < philo[0].num_of_philos)
-		pthread_join(philo[i - 1].thread, NULL);
-	return (0);
+	if (pthread_join(watcher, NULL))
+	{
+		while (i++ < philo[0].num_of_philos)
+			pthread_join(philo[i - 1].thread, NULL);
+	}
+	return (true);
 }
 
 void	destroy_all(t_philo *philo, pthread_mutex_t *fork)

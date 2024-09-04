@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 12:49:16 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:38:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
-# define PHILO_MAX 250
+# define PHILO_MAX 1000
 # define INIT 1
 # define LOCK 2
 # define UNLOCK 3
 # define DESTROY 4
 # define CREATE 5
 # define JOIN 6
-# define DETACH
+# define DETACH 7
 
 typedef struct s_data
 {
@@ -54,22 +54,35 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
+//thread
+bool	thread_make(t_philo *philo, pthread_mutex_t *fork);
+
+//mutex
+
+//action
+bool	eat(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	think(t_philo *philo);
+
+//init
 void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork);
+bool	fork_init(int fork_cnt, pthread_mutex_t *fork);
+bool	data_init(t_data *data);
+
+//utils
 int		ft_atoi(char *s);
 size_t	get_time(void);
-int		fork_init(int fork_cnt, pthread_mutex_t *fork);
-void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
-int		thread_make(t_philo *philo, pthread_mutex_t *fork);
-void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
-int		eat(t_philo *philo);
-void	think(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	*w_routine(void *pointer);
-int		data_init(t_data *data);
-int		check_dead(t_philo *philo);
 void 	print_msg(t_philo *philo, char *str);
+
+
+void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
+void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
+void	*w_routine(void *pointer);
+bool	is_dead(t_philo *philo);
 void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);
 void	ft_usleep(int time, t_philo *philo);
+bool philo_make(t_philo **philo, pthread_mutex_t **fork, int num);
+
 
 
 

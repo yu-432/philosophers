@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 22:14:16 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:49:11 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	think(t_philo *philo)
 	print_msg(philo, "is thinking");
 }
 
-void	ft_sleep(t_philo *philo)
+void	sleeping(t_philo *philo)
 {
 	print_msg(philo, "is sleeping");
 	ft_usleep(philo->time_to_sleep, philo);

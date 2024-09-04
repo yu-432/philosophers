@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 22:08:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:49:16 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		thread_make(t_philo *philo, pthread_mutex_t *fork);
 void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
 int		eat(t_philo *philo);
 void	think(t_philo *philo);
-void	ft_sleep(t_philo *philo);
+void	sleeping(t_philo *philo);
 void	*w_routine(void *pointer);
 int		data_init(t_data *data);
 int		check_dead(t_philo *philo);

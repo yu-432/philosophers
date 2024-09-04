@@ -6,20 +6,13 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 22:14:29 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:40:50 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
 #include <limits.h>
-
-void print_msg(t_philo *philo, char *str)
-{
-	if (check_dead(philo))
-		return ;
-	printf("%0.10zu %d %s\n", get_time() - philo->start_time, philo->id, str);
-}
 
 int	ft_atoi(char *s)
 {

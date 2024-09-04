@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:23:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 13:23:26 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:40:54 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,11 @@ void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op)
 			philo->data->is_error = true;
 			write(2, "Erorr:Mutex destroy failed\n", 27);
 		}
+}
+
+void print_msg(t_philo *philo, char *str)
+{
+	if (check_dead(philo))
+		return ;
+	printf("%0.10zu %d %s\n", get_time() - philo->start_time, philo->id, str);
 }

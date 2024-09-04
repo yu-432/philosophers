@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/03 21:02:15 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:48:55 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,19 @@ void *p_routine(void *pointer)
 	philo = (t_philo *)pointer;
 	if (philo->num_of_philos % 2 == 0 && philo->id % 2 == 0)
 	{
-		usleep(philo->time_to_eat * 500);
+		ft_usleep(philo->time_to_eat, philo);
 	}
 	else if (philo->num_of_philos % 2 == 1)
 	{
 		if (philo->id % 2 == 0)
-			usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 2) + philo->time_to_eat * 1000);
+			ft_usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 2) + philo->time_to_eat, philo);
 		else
-			usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 1) * 1000);
+			ft_usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 1), philo);
 	}
-	// while (!check_dead(philo))
 	while (!philo->data->is_dead)
 	{
 		eat(philo);
-		ft_sleep(philo);
+		sleeping(philo);
 		think(philo);
 	}
 	return (pointer);
@@ -65,13 +64,9 @@ int	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
 		return (write(2, "Error:Thread create\n", 20), -1);
 	i = 0;
+	pthread_join(watcher, NULL);
 	while (i++ < philo[0].num_of_philos)
-	{
-		if (pthread_join(philo[i - 1].thread, NULL) != 0)
-			return (write(2, "Error:Thread join\n", 18), -1);
-	}
-	if (pthread_join(watcher, NULL) != 0)
-		return (write(2, "Error:Thread join\n", 18), -1);
+		pthread_join(philo[i - 1].thread, NULL);
 	return (0);
 }
 

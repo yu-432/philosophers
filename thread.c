@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 20:00:19 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 09:16:23 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,24 +57,10 @@ bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
 		return (write(2, "Error:Thread create\n", 20), false);
 	i = 0;
-	if (pthread_join(watcher, NULL))
-	{
-		while (i++ < philo[0].num_of_philos)
-			pthread_join(philo[i - 1].thread, NULL);
-	}
+	pthread_join(watcher, NULL);
+	while (i++ < philo[0].num_of_philos)
+		pthread_join(philo[i - 1].thread, NULL);
 	return (true);
 }
 
-void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
-{
-	int	i;
 
-	i = 0;
-	while (i < philo[0].num_of_philos)
-	{
-		// mutex_func(&fork[i], philo, DESTROY);
-		pthread_mutex_destroy(&fork[i]);
-		i++;
-	}
-	return ;
-}

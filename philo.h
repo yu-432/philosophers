@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 13:10:51 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:52:13 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 typedef struct s_data
 {
-	bool			is_error;
 	bool			is_dead;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	write_lock;
@@ -57,8 +56,6 @@ typedef struct s_philo
 //thread
 bool	thread_make(t_philo *philo, pthread_mutex_t *fork);
 
-//mutex
-
 //action
 bool	eat(t_philo *philo);
 void	sleeping(t_philo *philo);
@@ -72,16 +69,14 @@ bool	data_init(t_data *data);
 
 //utils
 int		ft_atoi(char *s);
+void	ft_usleep(int time, t_philo *philo);
 size_t	get_time(void);
 void	print_msg(t_philo *philo, char *str);
 
-void	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, \
-					t_philo *philo);
-void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
+//watcher
 void	*w_routine(void *pointer);
-bool	is_dead(t_philo *philo);
+
+//wrapper
 void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);
-void	ft_usleep(int time, t_philo *philo);
-bool	philo_make(t_philo **philo, pthread_mutex_t **fork, int num);
 
 #endif

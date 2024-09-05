@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:23:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 15:06:16 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:51:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op)
 	}
 }
 
-bool	is_dead(t_philo *philo)
+static bool	is_dead(t_philo *philo)
 {
 	mutex_func(&philo->data->dead_lock, philo, LOCK);
 	if (philo->data->is_dead == true)

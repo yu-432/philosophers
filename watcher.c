@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 14:44:26 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 15:46:40 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	*w_routine(void *pointer)
 	philos = (t_philo *)pointer;
 	while (!philos[0].data->is_dead)
 	{
-		if (dead_loop(philos) == 1 || check_count_eat(philos) == 1 \
-			|| philos[0].data->is_error)
+		if (dead_loop(philos) == 1 || check_count_eat(philos) == 1)
 			break ;
 	}
 	return (pointer);

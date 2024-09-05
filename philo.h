@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 09:05:40 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 12:00:30 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void 	print_msg(t_philo *philo, char *str);
 
 
 void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
-void	destroy_all(t_philo **philo, pthread_mutex_t **fork);
+void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
 void	*w_routine(void *pointer);
 bool	is_dead(t_philo *philo);
 void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);

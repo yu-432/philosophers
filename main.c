@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 09:20:58 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 12:03:16 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ bool	philo_fork_make(t_philo **philo, pthread_mutex_t **fork, int num)
 	return (true);
 }
 
-void	destroy_all(t_philo **philo, pthread_mutex_t **fork)
+void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo[0]->num_of_philos)
+	while (i < philo[0].num_of_philos)
 	{
-		pthread_mutex_destroy(fork[i]);
+		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
-	free(*philo);
-	free(*fork);
+	free(philo);
+	free(fork);
 	return ;
 }
 
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	philo_init(argv, &data, philo, fork);
 	if (!thread_make(philo, fork))
-		return (destroy_all(&philo, &fork), 1);
-	destroy_all(&philo, &fork);
+		return (destroy_all(philo, fork), 1);
+	destroy_all(philo, fork);
 	return (0);
 }

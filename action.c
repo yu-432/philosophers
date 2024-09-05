@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 13:11:00 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 19:53:58 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:08:36 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool	eat(t_philo *philo)
 	if (pthread_mutex_lock(philo->r_fork) != 0)
 		return (write(2, "Error:Mutex lock\n", 17), false);
 	print_msg(philo, "has taken a fork");
+	if (philo->num_of_philos == 1)
+		ft_usleep(philo->time_to_sleep + 10, philo);
 	if (pthread_mutex_lock(philo->l_fork) != 0)
 		return (write(2, "Error:Mutex lock\n", 17), false);
 	print_msg(philo, "has taken a fork");

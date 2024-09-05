@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 18:49:05 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 11:43:10 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	dead_loop(t_philo *philos)
 			pthread_mutex_lock(&philos[0].data->dead_lock);
 			philos[0].data->is_dead = true;
 			pthread_mutex_unlock(&philos[0].data->dead_lock);
-			printf("%10zu %d died\n", get_time() - philos[i].start_time, philos[i].id);
+			printf("%0.10zu %d died\n", get_time() - philos[i].start_time, philos[i].id);
 			return (1);
 		}
 		i++;

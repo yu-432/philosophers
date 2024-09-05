@@ -6,17 +6,15 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 09:16:23 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 12:03:05 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-
-void *p_routine(void *pointer)
+void	*p_routine(void *pointer)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)pointer;
 	if (philo->num_of_philos % 2 == 0 && philo->id % 2 == 0)
@@ -26,9 +24,11 @@ void *p_routine(void *pointer)
 	else if (philo->num_of_philos % 2 == 1)
 	{
 		if (philo->id % 2 == 0)
-			ft_usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 2) + philo->time_to_eat, philo);
+			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
+			(philo->id - 2) + philo->time_to_eat, philo);
 		else
-			ft_usleep((philo->time_to_eat / philo->num_of_philos) * (philo->id - 1), philo);
+			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
+			(philo->id - 1), philo);
 	}
 	while (!philo->data->is_dead)
 	{
@@ -41,8 +41,9 @@ void *p_routine(void *pointer)
 
 bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 {
-	int	i;
-	pthread_t watcher;
+	int			i;
+	void		*res;
+	pthread_t	watcher;
 
 	i = 0;
 	while (i++ < philo[0].num_of_philos)
@@ -57,9 +58,11 @@ bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
 		return (write(2, "Error:Thread create\n", 20), false);
 	i = 0;
-	pthread_join(watcher, NULL);
+	pthread_join(watcher, &res);
 	while (i++ < philo[0].num_of_philos)
+	{
 		pthread_join(philo[i - 1].thread, NULL);
+	}
 	return (true);
 }
 

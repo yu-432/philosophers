@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 12:15:55 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:07:15 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	*p_routine(void *pointer)
 	while (!philo->data->is_dead)
 	{
 		if (!eat(philo))
-			break;
+			break ;
 		sleeping(philo);
 		think(philo);
 	}
-	return (pointer);
+	return (NULL);
 }
 
 bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
@@ -46,10 +46,11 @@ bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	void		*res;
 	pthread_t	watcher;
 
-	i = 0;
-	while (i++ < philo[0].num_of_philos)
+	i = -1;
+	while (++i < philo[0].num_of_philos)
 	{
-		if (pthread_create(&philo[i - 1].thread, NULL, p_routine, &philo[i - 1]) != 0)
+		if (pthread_create(&philo[i].thread, NULL, p_routine, \
+			&philo[i]) != 0)
 		{
 			while (--i >= 0)
 				pthread_detach(philo[i].thread);
@@ -58,13 +59,9 @@ bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
 	}
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
 		return (write(2, "Error:Thread create\n", 20), false);
-	i = 0;
+	i = -1;
 	pthread_join(watcher, &res);
-	while (i++ < philo[0].num_of_philos)
-	{
-		pthread_join(philo[i - 1].thread, NULL);
-	}
+	while (++i < philo[0].num_of_philos)
+		pthread_join(philo[i].thread, NULL);
 	return (true);
 }
-
-

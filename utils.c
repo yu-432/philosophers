@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/04 12:40:50 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:11:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ size_t	get_time(void)
 
 void	ft_usleep(int time, t_philo *philo)
 {
-	size_t start;
+	size_t	start;
 
 	start = get_time();
-	while(1)
+	while (1)
 	{
 		if (get_time() - start >= time)
-			break;
+			break ;
 		usleep(philo->time_to_sleep);
 	}
 }

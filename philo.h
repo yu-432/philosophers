@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 12:00:30 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:10:51 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,23 @@ void	sleeping(t_philo *philo);
 void	think(t_philo *philo);
 
 //init
-void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork);
+void	philo_init(char **argv, t_data *data, t_philo *philo, \
+					pthread_mutex_t *fork);
 bool	fork_init(int fork_cnt, pthread_mutex_t *fork);
 bool	data_init(t_data *data);
 
 //utils
 int		ft_atoi(char *s);
 size_t	get_time(void);
-void 	print_msg(t_philo *philo, char *str);
+void	print_msg(t_philo *philo, char *str);
 
-
-void 	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, t_philo *philo);
+void	clear_mutex(int f_cnt, int m_cnt, pthread_mutex_t *fork, \
+					t_philo *philo);
 void	destroy_all(t_philo *philo, pthread_mutex_t *fork);
 void	*w_routine(void *pointer);
 bool	is_dead(t_philo *philo);
 void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);
 void	ft_usleep(int time, t_philo *philo);
-bool philo_make(t_philo **philo, pthread_mutex_t **fork, int num);
-
-
-
-
+bool	philo_make(t_philo **philo, pthread_mutex_t **fork, int num);
 
 #endif

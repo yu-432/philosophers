@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 12:03:27 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/05 13:10:00 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	input_init(char **argv, t_philo *philo)
 		philo->num_times_to_eat = -1;
 }
 
-
-void	philo_init(char **argv, t_data *data, t_philo *philo, pthread_mutex_t *fork)
+void	philo_init(char **argv, t_data *data, t_philo *philo, \
+	pthread_mutex_t *fork)
 {
 	int	i;
 	int	p_cnt;

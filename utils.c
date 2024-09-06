@@ -6,12 +6,13 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 17:41:18 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:06:20 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/time.h>
+#include <limits.h>
 
 int	ft_atoi(char *s)
 {

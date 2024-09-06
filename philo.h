@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 15:52:13 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:15:19 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	data_init(t_data *data);
 int		ft_atoi(char *s);
 void	ft_usleep(int time, t_philo *philo);
 size_t	get_time(void);
-void	print_msg(t_philo *philo, char *str);
+void	print_log(t_philo *philo, char *str);
 
 //watcher
 void	*w_routine(void *pointer);

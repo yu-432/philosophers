@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 16:16:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 16:51:36 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	dead_loop(t_philo *philos)
 			mutex_func(&philos[0].data->dead_lock, &philos[0], LOCK);
 			philos[0].data->is_dead = true;
 			mutex_func(&philos[0].data->dead_lock, &philos[0], UNLOCK);
-			print_log(&philos[0], "died");
+			printf("%0.10zu %d dead\n", get_time() - philos[i].start_time, \
+					philos[i].id);
 			return (1);
 		}
 		i++;

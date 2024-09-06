@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/05 12:54:19 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:18:08 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ bool	philo_fork_make(t_philo **philo, pthread_mutex_t **fork, int num)
 	*philo = (t_philo *)malloc(sizeof(t_philo) * num);
 	if (!*philo)
 	{
-		write(2, "Error:Philo malloc\n", 19);
+		write(2, "Error:Philo malloc failed\n", 26);
 		return (false);
 	}
 	*fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * num);
 	if (!*fork)
 	{
-		write(2, "Error:Philo fork\n", 17);
+		write(2, "Error:Fork malloc failed\n", 25);
 		free(*philo);
 		return (false);
 	}

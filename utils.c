@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 16:06:20 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:18:42 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ void	ft_usleep(int time, t_philo *philo)
 			break ;
 		usleep(philo->time_to_sleep);
 	}
+}
+
+void	print_log(t_philo *philo, char *str)
+{
+	mutex_func(&philo->data->dead_lock, philo, LOCK);
+	if (philo->data->is_dead)
+	{
+		mutex_func(&philo->data->dead_lock, philo, UNLOCK);
+		return ;
+	}
+	mutex_func(&philo->data->dead_lock, philo, UNLOCK);
+	mutex_func(&philo->data->write_lock, philo, LOCK);
+	printf("%0.10zu %d %s\n", get_time() - philo->start_time, philo->id, str);
+	mutex_func(&philo->data->write_lock, philo, UNLOCK);
 }

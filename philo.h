@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 16:15:19 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:57:03 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,9 @@
 # include <stdbool.h>
 # include <stdlib.h>
 
-# define PHILO_MAX 1000
-# define INIT 1
-# define LOCK 2
-# define UNLOCK 3
-# define DESTROY 4
-# define CREATE 5
-# define JOIN 6
-# define DETACH 7
+# define PHILO_MAX 500
+# define LOCK 1
+# define UNLOCK 2
 
 typedef struct s_data
 {

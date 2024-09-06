@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 17:10:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:49:30 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*p_routine(void *pointer)
 	return (NULL);
 }
 
-bool	thread_make(t_philo *philo, pthread_mutex_t *fork)
+bool	thread_make(t_philo *philo)
 {
 	int			i;
 	void		*res;

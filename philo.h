@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 18:57:03 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 21:47:26 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_data
 {
 	bool			is_dead;
 	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	write_lock;
+	pthread_mutex_t	output_lock;
 }	t_data;
 
 typedef struct s_philo
@@ -49,7 +49,7 @@ typedef struct s_philo
 }	t_philo;
 
 //thread
-bool	thread_make(t_philo *philo, pthread_mutex_t *fork);
+bool	thread_make(t_philo *philo);
 
 //action
 bool	eat(t_philo *philo);
@@ -57,21 +57,18 @@ void	sleeping(t_philo *philo);
 void	think(t_philo *philo);
 
 //init
-void	philo_init(char **argv, t_data *data, t_philo *philo, \
+bool	philo_init(char **argv, t_data *data, t_philo *philos, \
 					pthread_mutex_t *fork);
 bool	fork_init(int fork_cnt, pthread_mutex_t *fork);
 bool	data_init(t_data *data);
 
 //utils
 int		ft_atoi(char *s);
-void	ft_usleep(int time, t_philo *philo);
+void	ft_usleep(size_t time, t_philo *philo);
 size_t	get_time(void);
 void	print_log(t_philo *philo, char *str);
 
 //watcher
 void	*w_routine(void *pointer);
-
-//wrapper
-void	mutex_func(pthread_mutex_t *mutex, t_philo *philo, int op);
 
 #endif

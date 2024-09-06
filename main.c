@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 18:18:08 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/06 20:54:53 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,36 @@ bool	philo_fork_make(t_philo **philo, pthread_mutex_t **fork, int num)
 	return (true);
 }
 
-void	destroy_all(t_philo *philo, pthread_mutex_t *fork)
+void	destroy_all(t_philo *philos, pthread_mutex_t *fork)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo[0].num_of_philos)
+	while (i < philos[0].num_of_philos)
 	{
 		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
-	free(philo);
+	free(philos);
 	free(fork);
 	return ;
 }
 
 int	main(int argc, char *argv[])
 {
-	t_philo			*philo;
+	t_philo			*philos;
 	pthread_mutex_t	*fork;
 	t_data			data;
 
 	if (!check_arg(argc, argv))
 		return (write(2, "Error:Invalid args. 3 700 200 200 [10]\n", 39), 1);
-	if (!philo_fork_make(&philo, &fork, ft_atoi(argv[1])))
+	if (!philo_fork_make(&philos, &fork, ft_atoi(argv[1])))
 		return (1);
 	if (!fork_init(ft_atoi(argv[1]), fork) || !data_init(&data))
 		return (1);
-	philo_init(argv, &data, philo, fork);
-	if (!thread_make(philo, fork))
-		return (destroy_all(philo, fork), 1);
-	destroy_all(philo, fork);
+	philo_init(argv, &data, philos, fork);
+	if (!thread_make(philos))
+		return (destroy_all(philos, fork), 1);
+	destroy_all(philos, fork);
 	return (0);
 }

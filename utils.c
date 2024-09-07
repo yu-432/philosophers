@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 15:09:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:05:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_usleep(size_t time)
 	{
 		if (get_time() - start >= time)
 			break ;
-		usleep(50);
+		usleep(10);
 	}
 }
 

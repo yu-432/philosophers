@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 21:26:22 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:09:46 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ size_t	get_time(void)
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-void	ft_usleep(size_t time, t_philo *philo)
+void	ft_usleep(size_t time)
 {
 	size_t	start;
 
@@ -46,13 +46,13 @@ void	ft_usleep(size_t time, t_philo *philo)
 	{
 		if (get_time() - start >= time)
 			break ;
-		usleep(philo->time_to_sleep);
+		usleep(50);
 	}
 }
 
 void	print_log(t_philo *philo, char *str)
 {
-	if (philo->data->is_dead)
+	if (is_dead(philo))
 		return ;
 	pthread_mutex_lock(&philo->data->output_lock);
 	printf("%zu %d %s\n", get_time() - philo->start_time, philo->id, str);

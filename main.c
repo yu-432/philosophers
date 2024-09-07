@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 20:54:53 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:48:43 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 bool	check_arg(int argc, char **argv)
 {
 	int	i;
+	int	res;
 
 	if (argc != 5 && argc != 6)
 		return (false);
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atoi(argv[i]) == -1 \
-			|| (i == 1 && ft_atoi(argv[i]) > PHILO_MAX))
+		res = ft_atoi(argv[i]);
+		if (res <= 0 || (i == 1 && res > PHILO_MAX))
 			return (false);
 		i++;
 	}
@@ -47,7 +48,7 @@ bool	philo_fork_make(t_philo **philo, pthread_mutex_t **fork, int num)
 	return (true);
 }
 
-void	destroy_all(t_philo *philos, pthread_mutex_t *fork)
+void	destroy_all(t_philo *philos, pthread_mutex_t *fork, int philo_cnt)
 {
 	int	i;
 
@@ -55,6 +56,12 @@ void	destroy_all(t_philo *philos, pthread_mutex_t *fork)
 	while (i < philos[0].num_of_philos)
 	{
 		pthread_mutex_destroy(&fork[i]);
+		i++;
+	}
+	i = 0;
+	while (i < philo_cnt)
+	{
+		pthread_mutex_destroy(&philos[i].write_lock);
 		i++;
 	}
 	free(philos);
@@ -74,9 +81,10 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!fork_init(ft_atoi(argv[1]), fork) || !data_init(&data))
 		return (1);
-	philo_init(argv, &data, philos, fork);
+	if (!philo_init(argv, &data, philos, fork))
+		return (1);
 	if (!thread_make(philos))
-		return (destroy_all(philos, fork), 1);
-	destroy_all(philos, fork);
+		return (destroy_all(philos, fork, philos[0].num_of_philos), 1);
+	destroy_all(philos, fork, philos[0].num_of_philos);
 	return (0);
 }

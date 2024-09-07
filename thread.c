@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/06 20:49:30 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:11:30 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	*p_routine(void *pointer)
 
 	philo = (t_philo *)pointer;
 	if (philo->num_of_philos % 2 == 0 && philo->id % 2 == 0)
-		ft_usleep(philo->time_to_eat, philo);
+		ft_usleep(philo->time_to_eat);
 	else if (philo->num_of_philos % 2 == 1)
 	{
 		if (philo->id % 2 == 0)
 			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
-					(philo->id - 2) + philo->time_to_eat, philo);
+					(philo->id - 2) + philo->time_to_eat);
 		else
 			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
-					(philo->id - 1), philo);
+					(philo->id - 1));
 	}
-	while (!philo->data->is_dead)
+	while (!is_dead(philo))
 	{
 		if (!eat(philo))
 			break ;

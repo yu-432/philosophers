@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 15:10:11 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:59:46 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@
 # include <stdlib.h>
 
 # define PHILO_MAX 500
-# define LOCK 1
-# define UNLOCK 2
-
-typedef struct s_data
-{
-	bool			is_dead;
-	pthread_mutex_t	dead_lock;
-	pthread_mutex_t	output_lock;
-}	t_data;
 
 typedef struct s_philo
 {
@@ -43,14 +34,25 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	pthread_mutex_t	write_lock;
+	bool			*is_dead;
+	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*output_lock;
+	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	t_data			*data;
 }	t_philo;
 
+typedef struct s_lock
+{
+	bool			is_dead;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	output_lock;
+	pthread_mutex_t	write_lock;
+	t_philo			*philos;
+}	t_lock;
+
 //main
-void	destroy_all(t_philo *philos, pthread_mutex_t *fork, int philo_cnt);
+void	destroy_all(t_philo *philos, pthread_mutex_t *fork);
 
 //thread
 bool	thread_make(t_philo *philo);
@@ -61,10 +63,10 @@ void	sleeping(t_philo *philo);
 void	think(t_philo *philo);
 
 //init
-bool	philo_init(char **argv, t_data *data, t_philo *philos, \
+bool	philo_init(char **argv, t_lock *lock_data, t_philo *philos, \
 					pthread_mutex_t *fork);
 bool	fork_init(int fork_cnt, pthread_mutex_t *fork);
-bool	data_init(t_data *data);
+bool	data_init(t_lock *lock_data, t_philo *philos);
 
 //utils
 int		ft_atoi(char *s);

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 14:19:53 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:59:34 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ bool	fork_init(int philo_cnt, pthread_mutex_t *fork)
 	return (true);
 }
 
-bool	data_init(t_data *data)
+bool	data_init(t_lock *lock_data, t_philo *philos)
 {
-	data->is_dead = false;
-	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+	lock_data->is_dead = false;
+	if (pthread_mutex_init(&lock_data->dead_lock, NULL) != 0)
 		return (false);
-	if (pthread_mutex_init(&data->output_lock, NULL) != 0)
+	if (pthread_mutex_init(&lock_data->write_lock, NULL) != 0)
 		return (false);
+	if (pthread_mutex_init(&lock_data->output_lock, NULL) != 0)
+		return (false);
+	lock_data->philos = philos;
 	return (true);
 }
 
@@ -56,7 +59,7 @@ void	input_init(char **argv, t_philo *philo)
 		philo->num_times_to_eat = -1;
 }
 
-bool	philo_init(char **argv, t_data *data, t_philo *philos, \
+bool	philo_init(char **argv, t_lock *lock_data, t_philo *philos, \
 	pthread_mutex_t *fork)
 {
 	int	i;
@@ -67,13 +70,14 @@ bool	philo_init(char **argv, t_data *data, t_philo *philos, \
 	while (i < p_cnt)
 	{
 		input_init(argv, &philos[i]);
-		if (pthread_mutex_init(&philos[i].write_lock, NULL))
-			return (destroy_all(philos, fork, i), false);
 		philos[i].id = i + 1;
 		philos[i].meals_eaten = 0;
 		philos[i].last_meal = get_time();
 		philos[i].start_time = get_time();
-		philos[i].data = data;
+		philos[i].is_dead = &lock_data->is_dead;
+		philos[i].dead_lock = &lock_data->dead_lock;
+		philos[i].output_lock = &lock_data->output_lock;
+		philos[i].write_lock = &lock_data->write_lock;
 		philos[i].l_fork = &fork[i];
 		if (i == 0)
 			philos[i].r_fork = &fork[philos[i].num_of_philos - 1];

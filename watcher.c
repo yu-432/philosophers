@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:07:49 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 15:14:04 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:59:27 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ int	check_count_eat(t_philo *philos)
 	{
 		while (i < philos[0].num_of_philos)
 		{
-			pthread_mutex_lock(&philos[i].write_lock);
+			pthread_mutex_lock(philos[i].write_lock);
 			if (philos[i].meals_eaten >= philos[0].num_times_to_eat)
 				count++;
-			pthread_mutex_unlock(&philos[i].write_lock);
+			pthread_mutex_unlock(philos[i].write_lock);
 			i++;
 		}
 		if (count == philos[0].num_of_philos)
 		{
-			pthread_mutex_lock(&philos[0].data->dead_lock);
-			philos[0].data->is_dead = true;
-			return (pthread_mutex_unlock(&philos[0].data->dead_lock), 1);
+			pthread_mutex_lock(philos[0].dead_lock);
+			*philos[0].is_dead = true;
+			return (pthread_mutex_unlock(philos[0].dead_lock), 1);
 		}
 	}
 	return (0);
@@ -48,18 +48,18 @@ int	dead_loop(t_philo *philos)
 	i = 0;
 	while (i < philos[0].num_of_philos)
 	{
-		pthread_mutex_lock(&philos[i].write_lock);
+		pthread_mutex_lock(philos[i].write_lock);
 		if (get_time() - philos[i].last_meal > philos[i].time_to_die)
 		{
-			pthread_mutex_unlock(&philos[i].write_lock);
-			pthread_mutex_lock(&philos[0].data->dead_lock);
-			philos[0].data->is_dead = true;
-			pthread_mutex_unlock(&philos[0].data->dead_lock);
+			pthread_mutex_unlock(philos[i].write_lock);
+			pthread_mutex_lock(philos[0].dead_lock);
+			*philos[0].is_dead = true;
+			pthread_mutex_unlock(philos[0].dead_lock);
 			printf("%zu %d died\n", get_time() - philos[i].start_time, \
 					philos[i].id);
 			return (1);
 		}
-		pthread_mutex_unlock(&philos[i].write_lock);
+		pthread_mutex_unlock(philos[i].write_lock);
 		i++;
 	}
 	return (0);
@@ -67,13 +67,13 @@ int	dead_loop(t_philo *philos)
 
 bool	is_dead(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->dead_lock);
-	if (philo->data->is_dead)
+	pthread_mutex_lock(philo->dead_lock);
+	if (*philo->is_dead)
 	{
-		pthread_mutex_unlock(&philo->data->dead_lock);
+		pthread_mutex_unlock(philo->dead_lock);
 		return (true);
 	}
-	pthread_mutex_unlock(&philo->data->dead_lock);
+	pthread_mutex_unlock(philo->dead_lock);
 	return (false);
 }
 

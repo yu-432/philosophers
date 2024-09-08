@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:04:31 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 15:11:30 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:14:45 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	*p_routine(void *pointer)
 	else if (philo->num_of_philos % 2 == 1)
 	{
 		if (philo->id % 2 == 0)
-			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
-					(philo->id - 2) + philo->time_to_eat);
+			ft_usleep(philo->time_to_eat * (philo->id - 1) \
+					/ philo->num_of_philos + philo->time_to_eat);
 		else
-			ft_usleep((philo->time_to_eat / philo->num_of_philos) * \
-					(philo->id - 1));
+			ft_usleep(philo->time_to_eat * (philo->id - 1) \
+					/ philo->num_of_philos);
 	}
 	while (!is_dead(philo))
 	{
@@ -58,8 +58,8 @@ bool	thread_make(t_philo *philo)
 	if (pthread_create(&watcher, NULL, w_routine, philo) != 0)
 		return (write(2, "Error:Thread create\n", 20), false);
 	i = -1;
+	pthread_join(watcher, &res);
 	while (++i < philo[0].num_of_philos)
 		pthread_join(philo[i].thread, NULL);
-	pthread_join(watcher, &res);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:56:40 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/07 16:05:41 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:50:19 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_log(t_philo *philo, char *str)
 {
 	if (is_dead(philo))
 		return ;
-	pthread_mutex_lock(&philo->data->output_lock);
+	pthread_mutex_lock(philo->output_lock);
 	printf("%zu %d %s\n", get_time() - philo->start_time, philo->id, str);
-	pthread_mutex_unlock(&philo->data->output_lock);
+	pthread_mutex_unlock(philo->output_lock);
 }

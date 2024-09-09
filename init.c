@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:13:14 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/08 19:59:34 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:22:27 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,19 @@ bool	fork_init(int philo_cnt, pthread_mutex_t *fork)
 	return (true);
 }
 
-bool	data_init(t_lock *lock_data, t_philo *philos)
+bool	lock_init(t_lock *lock_data, t_philo *philos)
 {
 	lock_data->is_dead = false;
 	if (pthread_mutex_init(&lock_data->dead_lock, NULL) != 0)
 		return (false);
 	if (pthread_mutex_init(&lock_data->write_lock, NULL) != 0)
-		return (false);
+		return (pthread_mutex_destroy(&lock_data->dead_lock), false);
 	if (pthread_mutex_init(&lock_data->output_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&lock_data->dead_lock);
+		pthread_mutex_destroy(&lock_data->write_lock);
 		return (false);
+	}
 	lock_data->philos = philos;
 	return (true);
 }

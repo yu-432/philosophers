@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:08:52 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/08 12:41:18 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:14:14 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	destroy_all(t_philo *philos, pthread_mutex_t *fork)
 		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
+	pthread_mutex_destroy(philos[0].dead_lock);
+	pthread_mutex_destroy(philos[0].output_lock);
+	pthread_mutex_destroy(philos[0].write_lock);
 	free(philos);
 	free(fork);
 	return ;
@@ -73,7 +76,7 @@ int	main(int argc, char *argv[])
 		return (write(2, "Error:Invalid args. 3 700 200 200 [10]\n", 39), 1);
 	if (!philo_fork_make(&philos, &fork, ft_atoi(argv[1])))
 		return (1);
-	if (!fork_init(ft_atoi(argv[1]), fork) || !data_init(&lock_data, philos))
+	if (!fork_init(ft_atoi(argv[1]), fork) || !lock_init(&lock_data, philos))
 		return (1);
 	if (!philo_init(argv, &lock_data, philos, fork))
 		return (1);

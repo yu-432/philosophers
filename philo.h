@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:10:17 by yooshima          #+#    #+#             */
-/*   Updated: 2024/09/08 19:59:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/09/09 13:06:27 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	think(t_philo *philo);
 bool	philo_init(char **argv, t_lock *lock_data, t_philo *philos, \
 					pthread_mutex_t *fork);
 bool	fork_init(int fork_cnt, pthread_mutex_t *fork);
-bool	data_init(t_lock *lock_data, t_philo *philos);
+bool	lock_init(t_lock *lock_data, t_philo *philos);
 
 //utils
 int		ft_atoi(char *s);
